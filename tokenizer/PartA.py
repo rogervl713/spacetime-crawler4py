@@ -12,6 +12,7 @@ def tokenize(text: str) -> Iterator[str]:
             current_token.append(ch)
         elif current_token:
             yield ''.join(current_token).lower()
+            current_token = []
     if current_token:
         yield ''.join(current_token).lower()
 
@@ -39,12 +40,14 @@ def print_frequencies(frequencies: Dict, delimiter_key: Optional[str] = 'tab') -
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python3 PartA.py <text_file>")
+        print("Usage: python3 PartA.py <text> [delimiter_key]")
         sys.exit(1)
 
-    TEXT = ""
-    DELIMITER_KEY = ""
+    TEXT = sys.argv[1]
+    DELIMITER_KEY = sys.argv[2] if len(sys.argv) > 2 else 'tab'
 
     text_tokens = tokenize(text=TEXT)
     text_freqs = compute_word_frequencies(text_tokens)
+
     print_frequencies(text_freqs, delimiter_key=DELIMITER_KEY)
+    print(list(text_freqs.keys()))
