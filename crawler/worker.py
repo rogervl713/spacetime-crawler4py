@@ -64,7 +64,7 @@ class Worker(Thread):
                     self.subdomains[subdomain].add(resp.url)
 
                 tree = html.fromstring(resp.raw_response.content)
-                content = tree.xpath('//text()[not(ancestor::script or ancestor style)]')
+                content = tree.xpath('//text()[not(ancestor::script or ancestor::style)]')
                 text = ' '.join(content).strip()
                 tokens = A.tokenize(text)
 
